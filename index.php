@@ -21,3 +21,27 @@
  * @copyright   2021 Jo Beaver
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+require_once(__DIR__ . '/../../config.php');
+
+require_login();
+
+$context = context_system::instance();
+$PAGE->set_context($context);
+
+$url = new moodle_url('/local/coursereport/index.php');
+$title = get_string('pluginname', 'local_coursereport');
+
+$PAGE->set_url($url);
+$PAGE->set_heading($title);
+$PAGE->set_title($title);
+$PAGE->add_body_class('report');
+
+$PAGE->navbar->ignore_active();
+$PAGE->navbar->add(get_string('pluginname', 'local_coursereport'));
+
+echo $OUTPUT->header();
+
+echo "Some placeholder text for now";
+
+echo $OUTPUT->footer();
