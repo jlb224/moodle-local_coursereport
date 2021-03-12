@@ -24,13 +24,17 @@
 
 namespace local_coursereport\output;
 
+use renderable;
+use templatable;
 use html_writer;
 use moodle_url;
+use renderer_base;
 
-defined('MOODLE_INTERNAL') || die;
+class index implements renderable, templatable {
 
-class index_lib {
-
+    /**
+     * Get the list of users.
+     */
     public static function get_user_data() {
         global $DB;
 
@@ -44,6 +48,19 @@ class index_lib {
                 'name' => $name
             ];
         }
+        return $data;
+    }
+
+    /**
+     * Export this data so it can be used as the context for a mustache template.
+     *
+     * @param renderer_base $output
+     * @return array $data
+     */
+    public function export_for_template(renderer_base $output) {
+
+        $data = $this->get_user_data();
+
         return $data;
     }
 }

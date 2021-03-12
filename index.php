@@ -15,17 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
-* Display user course completion information.
+ * Display user list.
  *
  * @package     local_coursereport
  * @copyright   2021 Jo Beaver
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_coursereport\output\index_lib;
-global $CFG;
+use local_coursereport\output\index;
+
 require_once(__DIR__ . '/../../config.php');
-require_once($CFG->libdir.'/completionlib.php');
 
 require_login();
 
@@ -45,7 +44,7 @@ $PAGE->navbar->add(get_string('pluginname', 'local_coursereport'));
 
 echo $OUTPUT->header();
 
-$data = array_values(index_lib::get_user_data());
+$data = array_values(index::get_user_data());
 
 echo $OUTPUT->render_from_template('local_coursereport/index', ['rows' => $data]);
 

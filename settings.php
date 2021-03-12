@@ -25,6 +25,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
-    $ADMIN->add('reports', new admin_externalpage('coursereport', get_string('pluginname', 'local_coursereport'), 
+    $ADMIN->add('reports', new admin_externalpage('coursereport', get_string('pluginname', 'local_coursereport'),
     "$CFG->wwwroot/local/coursereport/index.php"));
 }
