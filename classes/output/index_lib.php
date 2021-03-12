@@ -15,38 +15,35 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
-* Display user course completion information.
+ * Class containing data for the index page.
  *
  * @package     local_coursereport
  * @copyright   2021 Jo Beaver
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use local_coursereport\output\index_lib;
-global $CFG;
-require_once(__DIR__ . '/../../config.php');
-require_once($CFG->libdir.'/completionlib.php');
+namespace local_coursereport\output;
 
-require_login();
+use html_writer;
+use moodle_url;
 
-$context = context_system::instance();
-$PAGE->set_context($context);
+defined('MOODLE_INTERNAL') || die;
 
-$url = new moodle_url('/local/coursereport/index.php');
-$title = get_string('pluginname', 'local_coursereport');
+class index_lib {
 
-$PAGE->set_url($url);
-$PAGE->set_heading($title);
-$PAGE->set_title($title);
-$PAGE->add_body_class('report');
+    public static function get_user_data() {
+        global $DB;
 
-$PAGE->navbar->ignore_active();
-$PAGE->navbar->add(get_string('pluginname', 'local_coursereport'));
+        $records = $DB->get_records('user');
 
-echo $OUTPUT->header();
-
-$data = array_values(index_lib::get_user_data());
-
-echo $OUTPUT->render_from_template('local_coursereport/index', ['rows' => $data]);
-
-echo $OUTPUT->footer();
+        $data = [];
+        foreach ($records as $record) {
+            $name = fullname($record);
+            $name = html_writer::link(new moodle_url('/local/coursereport/report.php',['id'=>$record->id]), $name);
+            $data[] = [
+                'name' => $name
+            ];
+        }
+        return $data;
+    }
+}

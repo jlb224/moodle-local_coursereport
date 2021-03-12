@@ -25,3 +25,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Course report';
+
+// Plugin strings.
+$string['back'] = 'Back to index';
+$string['completion'] = 'Completion status';
+$string['course'] = 'Course';
+$string['name'] = 'Name';
+$string['timecomplete'] = 'Time complete';

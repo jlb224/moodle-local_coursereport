@@ -25,5 +25,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_coursereport';
-$plugin->version  = 2021031001;
+$plugin->version  = 2021031100;
 $plugin->requires = 2020061500; // Moodle 3.9.
