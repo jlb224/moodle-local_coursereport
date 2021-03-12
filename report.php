@@ -70,13 +70,23 @@ foreach ($courses as $course) {
         'course' => $course->id
     );
     $ccompletion = new completion_completion($params);
+    $timecomplete = $ccompletion->timecompleted;
+
+    if (!$timecomplete) {
+        $timecomplete = "";
+    } else {
+        $timecomplete = userdate($timecomplete);
+    }
 
     $coursedata[] = [
+        'fullname' => $course->fullname,
         'course' => $coursename,
         'completion' => $completion,
-        'timecomplete' => $ccompletion->timecompleted
+        'timecomplete' => $timecomplete
     ];
 }
+
+$sort = array_multisort($coursedata, SORT_ASC , SORT_REGULAR);
 
 $data = [
     'name' => $username,
